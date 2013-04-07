@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset=utf-8>
+    <title>Radiation Bach</title>
+<script src="jquery-1.9.0.min.js">
+
+</script>
+<style type="text/css">
+.box1{
+    text-align:center;
+    width:100%;
+}
+body {
+	background-color: #000000;
+}
+</style>
+	<link rel="stylesheet" type="text/css" href="experiment-pages.css" />
+  </head>
+  <body>
+	<div class="box1" id="outer">
+		<div id="canvasContainer">
+			<canvas id="mainCanvas" width="1000" height="560"></canvas>
+			<div id="output"></div>
+		</div>
+	</div>
+<EMBED src="Ich_ruf_zu_dir.wav" width="105" height="45"  hidden="true" autostart="true" repeat="true">
+<!--
+akkadian amoy arabic aramaic armenian bengali burmese cantonese czech dutch  
+english french german greek gujarati hebrew hindi hittite hungarian ila
+indonesian italian japanese kannada kechua korean latin luganda man_chin marathi
+nepali nguni nyanja oriya persian polish portuguese punjabi rajasthani romanian
+russian serbian sinhalese sotho spanish sumerian swedish telugu thai turkish 
+ukrainian urdu vietnamese welsh wu
+-->
+<audio id="akkadian"  preload="auto">
+	<source src="greetings/akkadian.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="amoy"  preload="auto">
+	<source src="greetings/amoy.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="arabic"  preload="auto">
+	<source src="greetings/arabic.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="aramaic"  preload="auto">
+	<source src="greetings/aramaic.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="armenian"  preload="auto">
+	<source src="greetings/armenian.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="bengali"  preload="auto">
+	<source src="greetings/bengali.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="burmese"  preload="auto">
+	<source src="greetings/burmese.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="cantonese"  preload="auto">
+	<source src="greetings/cantonese.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="czech"  preload="auto">
+	<source src="greetings/czech.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="dutch"  preload="auto">
+	<source src="greetings/dutch.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="english"  preload="auto">
+	<source src="greetings/english.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="french"  preload="auto">
+	<source src="greetings/french.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="german"  preload="auto">
+	<source src="greetings/german.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="greek"  preload="auto">
+	<source src="greetings/greek.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="gujarati"  preload="auto">
+	<source src="greetings/gujarati.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="hebrew"  preload="auto">
+	<source src="greetings/hebrew.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="hindi"  preload="auto">
+	<source src="greetings/hindi.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="hittite"  preload="auto">
+	<source src="greetings/hittite.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="hungarian"  preload="auto">
+	<source src="greetings/hungarian.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="ila"  preload="auto">
+	<source src="greetings/ila.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="indonesian"  preload="auto">
+	<source src="greetings/indonesian.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="italian"  preload="auto">
+	<source src="greetings/italian.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="japanese"  preload="auto">
+	<source src="greetings/japanese.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="kannada"  preload="auto">
+	<source src="greetings/kannada.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="kechua"  preload="auto">
+	<source src="greetings/kechua.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="korean"  preload="auto">
+	<source src="greetings/korean.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="latin"  preload="auto">
+	<source src="greetings/latin.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="luganda"  preload="auto">
+	<source src="greetings/luganda.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="man_chin"  preload="auto">
+	<source src="greetings/man_chin.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="marathi"  preload="auto">
+	<source src="greetings/marathi.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="nepali"  preload="auto">
+	<source src="greetings/nepali.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="nguni"  preload="auto">
+	<source src="greetings/nguni.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="nyanja"  preload="auto">
+	<source src="greetings/nyanja.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="oriya"  preload="auto">
+	<source src="greetings/oriya.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="persian"  preload="auto">
+	<source src="greetings/persian.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="polish"  preload="auto">
+	<source src="greetings/polish.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="portuguese"  preload="auto">
+	<source src="greetings/portuguese.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="punjabi"  preload="auto">
+	<source src="greetings/punjabi.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="rajasthani"  preload="auto">
+	<source src="greetings/rajasthani.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="romanian"  preload="auto">
+	<source src="greetings/romanian.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="russian"  preload="auto">
+	<source src="greetings/russian.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="serbian"  preload="auto">
+	<source src="greetings/serbian.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="sinhalese"  preload="auto">
+	<source src="greetings/sinhalese.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="sotho"  preload="auto">
+	<source src="greetings/sotho.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="sumerian"  preload="auto">
+	<source src="greetings/sumerian.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="swedish"  preload="auto">
+	<source src="greetings/swedish.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="telugu"  preload="auto">
+	<source src="greetings/telugu.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="thai"  preload="auto">
+	<source src="greetings/thai.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="turkish"  preload="auto">
+	<source src="greetings/turkish.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="ukrainian"  preload="auto">
+	<source src="greetings/ukrainian.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="urdu"  preload="auto">
+	<source src="greetings/urdu.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="vietnamese"  preload="auto">
+	<source src="greetings/vietnamese.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="welsh"  preload="auto">
+	<source src="greetings/welsh.wav"></source>
+	Your browser does not support the audio
+</audio>
+<audio id="wu"  preload="auto">
+	<source src="greetings/wu.wav"></source>
+	Your browser does not support the audio
+</audio>
+<!--
+<audio id="bach"  preload="auto">
+	<source src="greetings/bach.wav"></source>
+	Your browser does not support the audio
+</audio>-->
+
+
+
+
+<script type="text/javascript" >
+var akkadian = $("#akkadian")[0];
+var amoy = $("#amoy")[0];
+var arabic = $("#arabic")[0];
+var aramaic = $("#aramaic")[0];
+var armenian = $("#armenian")[0];
+var bengali = $("#bengali")[0];
+var burmese = $("#burmese")[0];
+var cantonese = $("#cantonese")[0];
+var czech = $("#czech")[0];
+var dutch = $("#dutch")[0];
+var english = $("#english")[0];
+var french = $("#french")[0];
+var german = $("#german")[0];
+var greek = $("#greek")[0];
+var gujarati = $("#gujarati")[0];
+var hebrew = $("#hebrew")[0];
+var hindi = $("#hindi")[0];
+var hittite = $("#hittite")[0];
+var hungarian = $("#hungarian")[0];
+var ila = $("#ila")[0];
+var indonesian = $("#indonesian")[0];
+var italian = $("#italian")[0];
+var japanese = $("#japanese")[0];
+var kannada = $("#kannada")[0];
+var kechua = $("#kechua")[0];
+var korean = $("#korean")[0];
+var latin = $("#latin")[0];
+var luganda = $("#luganda")[0];
+var man_chin = $("#man_chin")[0];
+var marathi = $("#marathi")[0];
+var nepali = $("#nepali")[0];
+var nguni = $("#nguni")[0];
+var nyanja = $("#nyanja")[0];
+var oriya = $("#oriya")[0];
+var persian = $("#persian")[0];
+var polish = $("#polish")[0];
+var portuguese = $("#portuguese")[0];
+var punjabi = $("#punjabi")[0];
+var rajasthani = $("#rajasthani")[0];
+var romanian = $("#romanian")[0];
+var russian = $("#russian")[0];
+var serbian = $("#serbian")[0];
+var sinhalese = $("#sinhalese")[0];
+var sotho = $("#sotho")[0];
+var spanish = $("#spanish")[0];
+var sumerian = $("#sumerian")[0];
+var swedish = $("#swedish")[0];
+var telugu = $("#telugu")[0];
+var thai = $("#thai")[0];
+var turkish = $("#turkish")[0];
+var ukrainian = $("#ukrainian")[0];
+var urdu = $("#urdu")[0];
+var vietnamese = $("#vietnamese")[0];
+var welsh = $("#welsh")[0];
+var wu = $("#wu")[0];
+var bach = $("#bach")[0];
+
+
+var tab = new Array(akkadian,amoy,arabic,aramaic,armenian,bengali,burmese,cantonese,czech,dutch,english,french,german,greek,gujarati,hebrew,hindi,hittite,hungarian,
+			ila,indonesian,italian,japanese,kannada,kechua,korean,latin,luganda,man_chin,marathi,nepali,nguni,nyanja,oriya,persian,polish,portuguese,punjabi,rajasthani,romanian,
+			russian,serbian,sinhalese,sotho,spanish,sumerian,swedish,telugu,thai,turkish,ukrainian,urdu,vietnamese,welsh,wu);
+
+(function(){function C(){e.globalCompositeOperation="source-over";e.fillStyle="rgba(8,8,12,0.65)";e.fillRect(0,0,f,p);e.globalCompositeOperation="lighter";x=q-u;y=r-v;u=q;v=r;for(var d=0.86*f,l=0.125*f,m=0.5*f,t=Math.random,n=Math.abs,o=z;o--;){var h=A[o],i=h.x,j=h.y,a=h.a,b=h.b,c=i-q,k=j-r,g=Math.sqrt(c*c+k*k)||0.001,c=c/g,k=k/g;if(w&&g<m)var s=14*(1-g/m),a=a+(c*s+0.5-t()),b=b+(k*s+0.5-t());g<d&&(s=0.0014*(1-g/d)*f,a-=c*s,b-=k*s);g<l&&(c=2.6E-4*(1-g/l)*f,a+=x*c,b+=y*c);a*=B;b*=B;c=n(a);k=n(b);g=
+0.5*(c+k);0.1>c&&(a*=3*t());0.1>k&&(b*=3*t());c=0.45*g;c=Math.max(Math.min(c,3.5),0.4);i+=a;j+=b;i>f?(i=f,a*=-1):0>i&&(i=0,a*=-1);j>p?(j=p,b*=-1):0>j&&(j=0,b*=-1);h.a=a;h.b=b;h.x=i;h.y=j;e.fillStyle=h.color;e.beginPath();e.arc(i,j,c,0,D,!0);e.closePath();e.fill()}}function E(d){d=d?d:window.event;q=d.clientX-m.offsetLeft-n.offsetLeft;r=d.clientY-m.offsetTop-n.offsetTop}function F(){lang= Math.floor(Math.random()*tab.length);tab[lang].play();w=!0;return!1;} function G(){return w=!1}function H(){this.color="rgb("+Math.floor(255*Math.random())+","+Math.floor(255*
+Math.random())+","+Math.floor(255*Math.random())+")";this.b=this.a=this.x=this.y=0;this.size=1} var D=2*Math.PI,f=1E3,p=560,z=600,B=0.96,A=[],o,e,n,m,q,r,x,y,u,v,w;window.onload=function(){o=document.getElementById("mainCanvas");if(o.getContext){m=document.getElementById("outer");n=document.getElementById("canvasContainer");e=o.getContext("2d");for(var d=z;d--;){var l=new H;l.x=0.5*f;l.y=0.5*p;l.a=34*Math.cos(d)*Math.random();l.b=34*Math.sin(d)*Math.random();A[d]=l}q=u=0.5*f;r=v=0.5*p;document.onmousedown=
+F;document.onmouseup=G;document.onmousemove=E;setInterval(C,33);}else document.getElementById("output").innerHTML="Sorry, needs a recent version of Chrome, Firefox, Opera, Safari, or Internet Explorer 9."}})();    	
+
+
+</script>
+
+	
+
+  </body>
+</html>
