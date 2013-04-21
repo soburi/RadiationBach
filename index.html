@@ -334,11 +334,281 @@ var bach = $("#bach")[0];
 var tab = new Array(akkadian,amoy,arabic,aramaic,armenian,bengali,burmese,cantonese,czech,dutch,english,french,german,greek,gujarati,hebrew,hindi,hittite,hungarian,
 			ila,indonesian,italian,japanese,kannada,kechua,korean,latin,luganda,man_chin,marathi,nepali,nguni,nyanja,oriya,persian,polish,portuguese,punjabi,rajasthani,romanian,
 			russian,serbian,sinhalese,sotho,spanish,sumerian,swedish,telugu,thai,turkish,ukrainian,urdu,vietnamese,welsh,wu);
+(function(){
 
-(function(){function C(){e.globalCompositeOperation="source-over";e.fillStyle="rgba(8,8,12,0.65)";e.fillRect(0,0,f,p);e.globalCompositeOperation="lighter";x=q-u;y=r-v;u=q;v=r;for(var d=0.86*f,l=0.125*f,m=0.5*f,t=Math.random,n=Math.abs,o=z;o--;){var h=A[o],i=h.x,j=h.y,a=h.a,b=h.b,c=i-q,k=j-r,g=Math.sqrt(c*c+k*k)||0.001,c=c/g,k=k/g;if(w&&g<m)var s=14*(1-g/m),a=a+(c*s+0.5-t()),b=b+(k*s+0.5-t());g<d&&(s=0.0014*(1-g/d)*f,a-=c*s,b-=k*s);g<l&&(c=2.6E-4*(1-g/l)*f,a+=x*c,b+=y*c);a*=B;b*=B;c=n(a);k=n(b);g=
-0.5*(c+k);0.1>c&&(a*=3*t());0.1>k&&(b*=3*t());c=0.45*g;c=Math.max(Math.min(c,3.5),0.4);i+=a;j+=b;i>f?(i=f,a*=-1):0>i&&(i=0,a*=-1);j>p?(j=p,b*=-1):0>j&&(j=0,b*=-1);h.a=a;h.b=b;h.x=i;h.y=j;e.fillStyle=h.color;e.beginPath();e.arc(i,j,c,0,D,!0);e.closePath();e.fill()}}function E(d){d=d?d:window.event;q=d.clientX-m.offsetLeft-n.offsetLeft;r=d.clientY-m.offsetTop-n.offsetTop}function F(){lang= Math.floor(Math.random()*tab.length);tab[lang].play();w=!0;return!1;} function G(){return w=!1}function H(){this.color="rgb("+Math.floor(255*Math.random())+","+Math.floor(255*
-Math.random())+","+Math.floor(255*Math.random())+")";this.b=this.a=this.x=this.y=0;this.size=1} var D=2*Math.PI,f=1E3,p=560,z=600,B=0.96,A=[],o,e,n,m,q,r,x,y,u,v,w;window.onload=function(){o=document.getElementById("mainCanvas");if(o.getContext){m=document.getElementById("outer");n=document.getElementById("canvasContainer");e=o.getContext("2d");for(var d=z;d--;){var l=new H;l.x=0.5*f;l.y=0.5*p;l.a=34*Math.cos(d)*Math.random();l.b=34*Math.sin(d)*Math.random();A[d]=l}q=u=0.5*f;r=v=0.5*p;document.onmousedown=
-F;document.onmouseup=G;document.onmousemove=E;setInterval(C,33);}else document.getElementById("output").innerHTML="Sorry, needs a recent version of Chrome, Firefox, Opera, Safari, or Internet Explorer 9."}})();    	
+	var PI2=2*Math.PI,
+	    WIDTH=1000,
+	    HEIGHT=560,
+	    BALLNUM=10,
+	    VELOCITY_FACTOR=0.96,
+	    balls=[],
+	    maincanvas,
+	    context,
+	    canvascontainer,
+	    outer,
+	    cursorx,cursory,
+	    cursor_dx,cursor_dy,
+	    prev_cursorx,prev_cursory,
+	    distortion;
+
+	cursorx = 0;
+	cursory = 0;
+	
+	var heads = [];
+	var headcount = 3;
+
+	var framecount = 0;
+	var soundlast = 0;
+
+	function drawFrame(){
+		framecount++;
+		context.globalCompositeOperation="source-over";
+		context.fillStyle="rgba(8,8,12,0.65)";
+		context.fillRect(0,0,WIDTH,HEIGHT);
+		context.globalCompositeOperation="lighter";
+		cursor_dx=cursorx-prev_cursorx;
+		cursor_dy=cursory-prev_cursory;
+		prev_cursorx=cursorx;
+		prev_cursory=cursory;
+		var DEST_NEAR=0.86*WIDTH,
+		    DEST_MID=0.125*WIDTH,
+		    DEST_FAR=0.5*WIDTH;
+		for(var i=BALLNUM; i--;){
+			var ball=balls[i],
+			posx=ball.x,
+			posy=ball.y,
+			velx=ball.vx,
+			vely=ball.vy,
+			dx=posx-cursorx,
+			dy=posy-cursory,
+			distance=Math.sqrt(dx*dx+dy*dy)||0.001,
+			dx=dx/distance,
+			dy=dy/distance;
+			factor = 0.0001; 
+			if( (velx < 0 && cursor_dx > 0) || (velx>0 && cursor_dx < 0) || Math.abs(velx) < 15) {
+				velx+=cursor_dx*factor;
+			}
+			if( (vely < 0 && cursor_dy > 0) || (vely>0 && cursor_dy < 0) || Math.abs(vely) < 15) {
+				vely+=cursor_dy*factor;
+			}
+
+			velx*=0.998;
+			vely*=0.998;
+
+			absvelx=Math.abs(velx);
+			absvely=Math.abs(vely);
+			velsize = 0.5*(absvelx+absvely);
+
+
+			if(distortion) {
+				var absvel = Math.sqrt(velx*velx+vely*vely)||0.001;
+				velx *= 0.9;
+				vely *= 0.9;
+			}
+
+			if(distance < 30) {
+				velx += dx * 0.000001;
+				vely += dy * 0.000001;
+			}
+
+			else if(distance < 100) {
+				var absvel = Math.sqrt(velx*velx+vely*vely)||0.001;
+
+				velx -= dx * 0.000001;
+				vely -= dy * 0.000001;
+				
+				var absvel2 = Math.sqrt(velx*velx+vely*vely)||0.001;
+
+				velx *= absvel/absvel2;
+				vely *= absvel/absvel2;
+			}
+			else {
+				velx -= dx * (distance-100) * 0.01;
+				vely -= dy * (distance-100) * 0.01;
+				var dist=Math.sqrt(velx*velx+vely*vely)||0.001;
+			}
+
+			//radius=Math.max(Math.min(0.75*velsize,3.5),1.8);
+			//radius=Math.max(Math.min(0.75*velsize,3.5),1.8);
+			radius=Math.max(10, 0.75*(25-velsize) );
+			posx+=velx;
+			posy+=vely;
+
+			ball.vx=velx;
+			ball.vy=vely;
+			ball.x=posx;
+			ball.y=posy;
+			context.fillStyle=ball.color;
+			context.beginPath();
+			context.arc(posx,posy,radius,0,PI2,!0);
+			context.closePath();
+			context.fill();
+		}
+
+		for(var i=headcount; i--;) {
+			drawLineHead(heads[i], context);
+			if( heads[i].linetail[heads[i].linelen-1].x < -WIDTH/2 || heads[i].linetail[heads[i].linelen-1].x > WIDTH*3/2 || 
+			    heads[i].linetail[heads[i].linelen-1].y < -HEIGHT/2 || heads[i].linetail[heads[i].linelen-1].y > HEIGHT*3/2) {
+				heads[i] = new LineHead();
+				heads[i].strokeStyle ="rgb("+Math.floor(255*Math.random())+","+Math.floor(255* Math.random())+","+Math.floor(255*Math.random())+")";
+			}
+		}
+
+		var maxdist = 0;
+		for(var i=1; i<headcount; i++) {
+			var dx = heads[i].linetail[heads[i].linelen-1].x - heads[i-1].linetail[heads[i-1].linelen-1].x;
+			var dy = heads[i].linetail[heads[i].linelen-1].y - heads[i-1].linetail[heads[i-1].linelen-1].y;
+
+			var dist =Math.sqrt(dx*dx+dy*dy)||0.001;
+
+			if( dist < 100) {
+				if( (framecount-soundlast) > 150) {
+					lang= Math.floor(Math.random()*tab.length);
+					tab[lang].play();
+					soundlast = framecount;
+				}
+			}
+		}
+	}
+
+
+	
+
+	function Point() {
+		this.x = 0;
+		this.y = 0;
+		return this;
+	}
+
+	function LineHead() {
+		this.linetail = [];
+		this.linelen = 1;
+		var point = new Point();
+
+		var rand = Math.floor(Math.random() * 4);
+
+		switch(rand) {
+			case 0:
+				point.x = Math.random()*WIDTH;
+				point.y = 0;
+				break;
+			case 1:
+				point.x = WIDTH;
+				point.y = Math.random()*HEIGHT;
+				break;
+			case 2:
+				point.x = Math.random()*WIDTH;
+				point.y = HEIGHT;
+				break;
+			case 3:
+				point.x = 0;
+				point.y = Math.random()*HEIGHT;
+				break;
+		}
+		this.linetail[0] = point;
+
+		var dx = (cursorx-point.x);
+		var dy = (cursory-point.y);
+
+		var dist =Math.sqrt(dx*dx+dy*dy)||0.001;
+
+		this.linevelx = dx * 5 / dist;
+		this.linevely = dy * 5 / dist;
+
+		this.color = "rgb(255,255,128)";
+		this.strokeStyle = "Red";
+	}
+
+
+	for(var i=headcount; i--;) {
+		heads[i] = new LineHead();
+		heads[i].strokeStyle ="rgb("+Math.floor(255*Math.random())+","+Math.floor(255* Math.random())+","+Math.floor(255*Math.random())+")";
+	}
+ 
+	function drawLineHead(head, context) {
+		context.beginPath();
+		context.color = head.color
+		context.lineWidth = 2;
+		context.strokeStyle = head.strokeStyle;
+
+		var fromx= head.linetail[0].x;
+		var fromy= head.linetail[0].y;
+		context.moveTo(fromx, fromy);
+
+		for(var i=BALLNUM; i--;){
+			var ball=balls[i];
+			var posx=ball.x;
+			var posy=ball.y;
+			var linex = head.linetail[head.linelen-1].x;
+			var liney = head.linetail[head.linelen-1].y;
+
+			var dx = posx-linex;
+			var dy = posy-liney;
+
+			var dist = Math.sqrt(dx*dx+dy*dy);
+
+			head.linevelx += 12*dx/(dist*dist);
+			head.linevely += 12*dy/(dist*dist);
+		}
+
+		var point = new Point();
+		point.x = head.linetail[head.linelen-1].x + head.linevelx;
+		point.y = head.linetail[head.linelen-1].y + head.linevely;
+		head.linetail[head.linelen] = point;
+
+		if(isNaN(point.x) ) {
+			point.x  = 0;
+		}
+
+		head.linelen++;
+
+		for(var i=0; i<head.linelen; i++) {
+			context.lineTo(head.linetail[i].x, head.linetail[i].y);
+		}
+		context.stroke();
+	}
+
+	function onMouseMove(mevent){
+		mevent=mevent ? mevent : window.event;
+		cursorx=mevent.clientX-outer.offsetLeft-canvascontainer.offsetLeft;
+		cursory=mevent.clientY-outer.offsetTop-canvascontainer.offsetTop;
+	}
+	function onMouseDown(){
+		distortion=!0;
+		return!1; 
+	}
+	function onMouseUp(){
+		return distortion=!1
+	}
+	function Ball(){
+		this.color="rgb("+Math.floor(255*Math.random())+","+Math.floor(255* Math.random())+","+Math.floor(255*Math.random())+")";
+		this.vy=this.vx=this.x=this.y=0;
+		this.size=1
+	}
+	window.onload=function(){
+		maincanvas=document.getElementById("mainCanvas");
+		if(maincanvas.getContext){
+			outer=document.getElementById("outer");
+			canvascontainer=document.getElementById("canvasContainer");
+			context=maincanvas.getContext("2d");
+			for(var i=BALLNUM; i--;){
+				var ball=new Ball;
+				ball.x = 0.5 * WIDTH;
+				ball.y = 0.5 * HEIGHT;
+				ball.vx = 14 * Math.cos(i)*Math.random();
+				ball.vy = 14 * Math.sin(i)*Math.random();
+				balls[i]=ball
+			}
+			cursorx = prev_cursorx = 0.5*WIDTH;
+			cursory = prev_cursory = 0.5*HEIGHT;
+			document.onmousedown = onMouseDown;
+			document.onmouseup = onMouseUp;
+			document.onmousemove = onMouseMove;
+			setInterval(drawFrame,33);
+		}
+		else document.getElementById("output").innerHTML="Sorry, needs a recent version of Chrome, Firefox, Opera, Safari, or Internet Explorer 9."
+	}
+})();
 
 
 </script>
