@@ -38,7 +38,9 @@ body {
 			<div id="output"></div>
 		</div>
 	</div>
+<!--
 <EMBED src="Ich_ruf_zu_dir.wav" width="105" height="45"  hidden="true" autostart="true" repeat="true">
+-->
 <!--
 akkadian amoy arabic aramaic armenian bengali burmese cantonese czech dutch  
 english french german greek gujarati hebrew hindi hittite hungarian ila
@@ -47,6 +49,7 @@ nepali nguni nyanja oriya persian polish portuguese punjabi rajasthani romanian
 russian serbian sinhalese sotho spanish sumerian swedish telugu thai turkish 
 ukrainian urdu vietnamese welsh wu
 -->
+<!--
 <audio id="akkadian"  preload="auto">
 	<source src="greetings/akkadian.wav"></source>
 	Your browser does not support the audio
@@ -263,6 +266,7 @@ ukrainian urdu vietnamese welsh wu
 	<source src="greetings/wu.wav"></source>
 	Your browser does not support the audio
 </audio>
+-->
 <!--
 <audio id="bach"  preload="auto">
 	<source src="greetings/bach.wav"></source>
@@ -273,6 +277,7 @@ ukrainian urdu vietnamese welsh wu
 
 
 <script type="text/javascript" >
+/*
 var akkadian = $("#akkadian")[0];
 var amoy = $("#amoy")[0];
 var arabic = $("#arabic")[0];
@@ -334,6 +339,7 @@ var bach = $("#bach")[0];
 var tab = new Array(akkadian,amoy,arabic,aramaic,armenian,bengali,burmese,cantonese,czech,dutch,english,french,german,greek,gujarati,hebrew,hindi,hittite,hungarian,
 			ila,indonesian,italian,japanese,kannada,kechua,korean,latin,luganda,man_chin,marathi,nepali,nguni,nyanja,oriya,persian,polish,portuguese,punjabi,rajasthani,romanian,
 			russian,serbian,sinhalese,sotho,spanish,sumerian,swedish,telugu,thai,turkish,ukrainian,urdu,vietnamese,welsh,wu);
+*/
 (function(){
 
 	var PI2=2*Math.PI,
@@ -463,8 +469,8 @@ var tab = new Array(akkadian,amoy,arabic,aramaic,armenian,bengali,burmese,canton
 
 			if( dist < 100) {
 				if( (framecount-soundlast) > 150) {
-					lang= Math.floor(Math.random()*tab.length);
-					tab[lang].play();
+//					lang= Math.floor(Math.random()*tab.length);
+//					tab[lang].play();
 					soundlast = framecount;
 				}
 			}
